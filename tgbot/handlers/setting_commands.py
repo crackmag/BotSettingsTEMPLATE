@@ -34,4 +34,4 @@ def register_setting_commands(dp: Dispatcher):
     dp.register_message_handler(get_bot_commands, Command('get_commands'), chat_type=ChatType.PRIVATE)
     dp.register_message_handler(reset_all_commands, Command('reset_commands'))
     dp.register_message_handler(change_private_commands, Command('change_private_commands'), chat_type=ChatType.PRIVATE)
-    dp.register_message_handler(change_admin_commands, Command('change_commands'), chat_type=ChatType.SUPERGROUP)
+    dp.register_message_handler(change_admin_commands, Command('change_admin_commands'), chat_type=ChatType.SUPERGROUP)
