@@ -4,6 +4,7 @@ from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefaul
     BotCommandScopeChatMember
 
 # lang_code можно взять тут (ISO 639-1):
+# https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 # https://www.loc.gov/standards/iso639-2/php/code_list.php
 STARTING_COMMANDS = {
     'ru': [
@@ -34,7 +35,7 @@ async def set_starting_commands(bot: Bot, chat_id: int):
         )
 
 
-async def reset_commands(bot: Bot, chat_id: int):
+async def reset_commands_for_chat(bot: Bot, chat_id: int):
     await bot.delete_my_commands(scope=BotCommandScopeChat(chat_id))
 
 

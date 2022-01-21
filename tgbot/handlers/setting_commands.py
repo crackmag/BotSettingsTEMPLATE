@@ -3,7 +3,7 @@ from aiogram.dispatcher.filters import Command
 from aiogram.types import Message, ChatType, BotCommandScopeChat
 from aiogram.utils.markdown import quote_html
 
-from tgbot.services.setting_commands import set_all_private_commands, set_chat_admins_commands, reset_commands
+from tgbot.services.setting_commands import set_all_private_commands, set_chat_admins_commands, reset_commands_for_chat
 
 
 async def get_bot_commands(message: Message):
@@ -19,7 +19,7 @@ async def change_private_commands(message: Message):
 
 
 async def reset_all_commands(message: Message):
-    await reset_commands(message.bot, message.chat.id)
+    await reset_commands_for_chat(message.bot, message.chat.id)
     await message.answer('Все Команды были сброшены.')
 
 
