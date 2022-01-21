@@ -9,8 +9,12 @@ from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
+from tgbot.handlers.setting_commands import register_setting_commands
 from tgbot.handlers.user import register_user
 from tgbot.middlewares.db import DbMiddleware
+from tgbot.misc import notify_admins
+from tgbot.services.setting_commands import set_default_commands, set_all_group_commands, set_all_private_commands, \
+    set_all_chat_admins_commands
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +30,16 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     register_admin(dp)
     register_user(dp)
+    register_setting_commands(dp)
 
     register_echo(dp)
+
+
+async def set_all_default_commands(bot):
+    await set_default_commands(bot)
+    await set_all_group_commands(bot)
+    await set_all_private_commands(bot)
+    await set_all_chat_admins_commands(bot)
 
 
 async def main():
@@ -47,6 +59,9 @@ async def main():
     register_all_middlewares(dp)
     register_all_filters(dp)
     register_all_handlers(dp)
+
+    await set_all_default_commands(bot)
+    await notify_admins.send_messages(bot, config)
 
     # start
     try:
